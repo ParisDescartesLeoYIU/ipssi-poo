@@ -4,18 +4,30 @@
 namespace Ipssi\Evaluation;
 
 
-abstract class Forme extends Element implements Couleur
+abstract class Forme extends Element implements CouleurInterface
 {
-    private $couleur;
+    protected $couleur;
 
+    /**
+     * Forme constructor.
+     * @param $couleur
+     */
+    public function __construct( Position $position,Couleur $couleur)
+    {
+        parent::__construct($position);
+        $this->couleur = $couleur;
+    }
 
-
-    public function getCouleur(Color $couleur)
+    public function getCouleur(): Couleur
+    {
+        return $this->couleur;
+    }
+    public function getCouleurInterface(Couleur $couleur)
     {
         $red =$couleur->getRouge();
         $vert =$couleur->getVert();
         $bleu =$couleur->getBleu();
 
-        return "Le texte est de couleur : Rouge : ".$red." Vert: ".$vert." Bleu : ".$bleu." \n";
+        return "De couleur : Rouge : ".$red." Vert: ".$vert." Bleu : ".$bleu." \n";
     }
 }

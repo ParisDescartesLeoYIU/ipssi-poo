@@ -20,6 +20,7 @@ class Diviseur {
         if ($index>=sizeof($valeurs)||$index<0){
             throw new ExcedentException();
         }
+
         return $valeurs[$index] / $diviseur;
     }
 }
@@ -29,23 +30,20 @@ function recuperationDonner($climate)
     $saisie =false;
     do {
         try {
+
             $input = $climate->input("Entrez l’indice de l’entier à diviser : ");
             $index = $input->prompt();
-
 
             $input = $climate->input("Entrez le diviseur : ");
             $diviseur = $input->prompt();
 
-
             if (!is_numeric($index) || !is_numeric($diviseur)) {
                 throw new NotNumberException();
             }
-            if ($diviseur === (string)intval($diviseur) || $index === (string)intval($index)) {
+            if ($diviseur !== (string)intval($diviseur) || $index !== (string)intval($index)) {
                 throw new ItsAFloatException();
             }
 
-            var_dump($index);
-            var_dump((string)intval($index));
 
             $climate->output("Le résultat de la division est : " . (new Diviseur())->division($index, $diviseur));
 

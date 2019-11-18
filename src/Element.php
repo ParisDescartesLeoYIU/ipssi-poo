@@ -7,7 +7,7 @@ namespace Ipssi\Evaluation;
 abstract class Element
 {
 
-    private $position;
+    protected $position;
 
     /**
      * Element constructor.
@@ -20,9 +20,10 @@ abstract class Element
     /**
      * @return Position
      */
-    public function getPosition(): Position
+    public function getPosition(): string
     {
-        return $this->position;
+
+        return  "X= " .$this->position->getX()." et Y= ".$this->position->getY() ;
     }
 
 

@@ -4,10 +4,8 @@
 namespace Ipssi\Evaluation;
 
 
-class Document implements Couleur
+class Document implements CouleurInterface
 {
-    private $longueur;
-    private $largeur;
     private $elements;
     private $couleur;
 
@@ -16,10 +14,9 @@ class Document implements Couleur
      * @param $longueur
      * @param $largeur
      */
-    public function __construct(int $longueur, int $largeur, array $elements)
+    public function __construct(array $elements, Couleur $couleur)
     {
-        $this->longueur = $longueur;
-        $this->largeur = $largeur;
+        $this->couleur = $couleur;
         $this->elements = $elements;
     }
 
@@ -28,27 +25,42 @@ class Document implements Couleur
      */
     public function getElements()
     {
-
+        echo "Le Document est de couleur ".$this->getCouleurInterface($this->couleur);
         /** @var Element $element */
         foreach ($this->elements as $element) {
 
 
-            $element->getPosition();
+            echo "Au coordonner ".$element->getPosition()." il y a \n";
             switch (get_class($element)) {
+
 
                 case (namespace\Text::class):
                     /** @var Text $element */
-                    echo $element->getText();
-                    if ($element instanceof Couleur) {
-                        echo $element->getCouleur($element->getColor());
-            }
+                    echo "Un texte : '".$element->getText()."' \n";
+                    echo $element->getCouleurInterface($element->getCouleur());
+                    break;
+
+                case (namespace\Nuage::class):
+                    /** @var Nuage $element */
+                    echo "Un Nuage ! \n";
+                    echo $element->getCouleurInterface($element->getCouleur());
+                    break;
+
+                case (namespace\Etoile::class):
+                    /** @var Etoile $element */
+                    echo "Une Etoile ! \n";
+                    echo $element->getCouleurInterface($element->getCouleur());
+                    break;
+                case (namespace\Image::class):
+                    /** @var Image $element */
+                    echo "Une Image : ".$element->getNom();
                     break;
 
                 default:
                     echo "error c'est ni une image ni une forme et ni un texte";
                     break;
             }
-        };
+        }
     }
 
 
@@ -57,15 +69,14 @@ class Document implements Couleur
         return $this->elements[$index];
     }
 
-//    public function addElement(Element $element)
-//    {
-//
-    public function getCouleur(Color $couleur)
+
+
+    public function getCouleurInterface(Couleur $couleur)
     {
         $red =$couleur->getRouge();
         $vert =$couleur->getVert();
         $bleu =$couleur->getBleu();
 
-        return "Couleur : Rouge : ".$red." Vert: ".$vert." Bleu : ".$bleu." \n";
+        return "RGB: (".$red.",".$vert.",".$bleu.") \n";
     }
 }

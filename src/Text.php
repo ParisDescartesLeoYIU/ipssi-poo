@@ -4,28 +4,28 @@
 namespace Ipssi\Evaluation;
 
 
-class Text extends Element implements Couleur
+class Text extends Element implements CouleurInterface
 {
     private $text;
-    private $color;
+    private $couleur;
 
     /**
-     * @return Color
+     * @return Couleur
      */
-    public function getColor(): Color
+    public function getCouleur(): Couleur
     {
-        return $this->color;
+        return $this->couleur;
     }
 
     /**
      * Text constructor.
      * @param $text
      */
-    public function __construct(string $text,Position $position, Color $color    )
+    public function __construct(string $text,Position $position, Couleur $couleur    )
     {
         parent::__construct($position);
         $this->text = $text;
-        $this->color=$color;
+        $this->couleur=$couleur;
     }
 
     /**
@@ -36,13 +36,8 @@ class Text extends Element implements Couleur
         return $this->text;
     }
 
-//
-//    public function  setCouleur(Couleur $couleur)
-//    {
-//        $this->color = $couleur;
-//    }
 
-    public function getCouleur(Color $couleur)
+    public function getCouleurInterface(Couleur $couleur)
     {
         $red =$couleur->getRouge();
         $vert =$couleur->getVert();
